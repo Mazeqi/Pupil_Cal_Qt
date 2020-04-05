@@ -99,7 +99,7 @@ bool Question_Gen::Question_Gen_Many_Save(int Nums){
 		cout << "Unable to open otfile";
 		return false;
 	}
-	for (int i = Questions_Total; i < Nums; i++){
+    for (int i = 0; i < Nums; i++){
         string Ques = Question_Gen_One();
 		
 		if (Ques == ""){
@@ -305,4 +305,8 @@ string Question_Gen::Get_Index_Post_Ex(int index){
 //返回问题的数量
 int Question_Gen::Get_Questions_Total(){
 	return Questions_Total;
+}
+
+void Question_Gen::Set_Ques_Total_Zeros(){
+    Questions_Total = 0;
 }

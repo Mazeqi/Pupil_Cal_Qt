@@ -32,6 +32,11 @@ public:
     QLabel *label;
     QPushButton *Ques_NextOne_Button;
     QLineEdit *Ques_Total_Text;
+    QLabel *Ques_YAns_LLabel;
+    QLabel *Ques_Ans_RorN_Label;
+    QPushButton *Ques_Ans_Submit_Button;
+    QLineEdit *Ques_YAans_Text;
+    QLabel *Ques_Scores_Label;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -47,19 +52,34 @@ public:
         Ques_Index_Label->setGeometry(QRect(100, 110, 201, 41));
         Ques_Out_Browser = new QTextBrowser(centralwidget);
         Ques_Out_Browser->setObjectName(QString::fromUtf8("Ques_Out_Browser"));
-        Ques_Out_Browser->setGeometry(QRect(100, 150, 291, 61));
+        Ques_Out_Browser->setGeometry(QRect(100, 150, 291, 51));
         Ques_Start_Button = new QPushButton(centralwidget);
         Ques_Start_Button->setObjectName(QString::fromUtf8("Ques_Start_Button"));
-        Ques_Start_Button->setGeometry(QRect(520, 270, 112, 34));
+        Ques_Start_Button->setGeometry(QRect(500, 210, 112, 34));
         label = new QLabel(centralwidget);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(500, 110, 181, 31));
+        label->setGeometry(QRect(500, 120, 181, 21));
         Ques_NextOne_Button = new QPushButton(centralwidget);
         Ques_NextOne_Button->setObjectName(QString::fromUtf8("Ques_NextOne_Button"));
-        Ques_NextOne_Button->setGeometry(QRect(100, 270, 112, 34));
+        Ques_NextOne_Button->setGeometry(QRect(270, 330, 121, 31));
         Ques_Total_Text = new QLineEdit(centralwidget);
         Ques_Total_Text->setObjectName(QString::fromUtf8("Ques_Total_Text"));
-        Ques_Total_Text->setGeometry(QRect(500, 150, 171, 51));
+        Ques_Total_Text->setGeometry(QRect(500, 150, 171, 41));
+        Ques_YAns_LLabel = new QLabel(centralwidget);
+        Ques_YAns_LLabel->setObjectName(QString::fromUtf8("Ques_YAns_LLabel"));
+        Ques_YAns_LLabel->setGeometry(QRect(100, 230, 81, 18));
+        Ques_Ans_RorN_Label = new QLabel(centralwidget);
+        Ques_Ans_RorN_Label->setObjectName(QString::fromUtf8("Ques_Ans_RorN_Label"));
+        Ques_Ans_RorN_Label->setGeometry(QRect(400, 270, 81, 18));
+        Ques_Ans_Submit_Button = new QPushButton(centralwidget);
+        Ques_Ans_Submit_Button->setObjectName(QString::fromUtf8("Ques_Ans_Submit_Button"));
+        Ques_Ans_Submit_Button->setGeometry(QRect(100, 330, 112, 34));
+        Ques_YAans_Text = new QLineEdit(centralwidget);
+        Ques_YAans_Text->setObjectName(QString::fromUtf8("Ques_YAans_Text"));
+        Ques_YAans_Text->setGeometry(QRect(100, 260, 291, 51));
+        Ques_Scores_Label = new QLabel(centralwidget);
+        Ques_Scores_Label->setObjectName(QString::fromUtf8("Ques_Scores_Label"));
+        Ques_Scores_Label->setGeometry(QRect(100, 90, 81, 21));
         PuPil_APP->setCentralWidget(centralwidget);
         menubar = new QMenuBar(PuPil_APP);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -81,6 +101,10 @@ public:
         Ques_Start_Button->setText(QCoreApplication::translate("PuPil_APP", "\345\274\200\345\247\213", nullptr));
         label->setText(QCoreApplication::translate("PuPil_APP", "\350\276\223\345\205\2451-10000\357\274\232", nullptr));
         Ques_NextOne_Button->setText(QCoreApplication::translate("PuPil_APP", "\344\270\213\344\270\200\351\242\230", nullptr));
+        Ques_YAns_LLabel->setText(QCoreApplication::translate("PuPil_APP", "\344\275\240\347\232\204\347\255\224\346\241\210\357\274\232", nullptr));
+        Ques_Ans_RorN_Label->setText(QString());
+        Ques_Ans_Submit_Button->setText(QCoreApplication::translate("PuPil_APP", "\346\217\220\344\272\244", nullptr));
+        Ques_Scores_Label->setText(QCoreApplication::translate("PuPil_APP", "\345\276\227\345\210\206\357\274\232", nullptr));
     } // retranslateUi
 
 };

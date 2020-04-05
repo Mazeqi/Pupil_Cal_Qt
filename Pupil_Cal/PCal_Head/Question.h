@@ -77,6 +77,9 @@ public:
 	string Get_Index_Post_Ex(int index);
 
 	int Get_Questions_Total();
+
+    //将数量设成0
+    void Set_Ques_Total_Zeros();
 };
 
 
