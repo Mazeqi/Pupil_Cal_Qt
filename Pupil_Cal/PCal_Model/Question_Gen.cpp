@@ -174,7 +174,7 @@ string Question_Gen::Question_Gen_One(){
 
 		int R_Brackets = Random(0, 1); //是否加上括号
 		if (R_Brackets){
-			Question_i = "(" + Question_i + ")";
+            Question_i = "(" + Question_i + ") ";
 		}
 
 		Opera_Char_i = Random(0, 3);

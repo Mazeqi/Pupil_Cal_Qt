@@ -101,7 +101,12 @@ string Fraction::ToString() {
 		return Fra_String;
 	}
 	else {
-		Fra_String += to_string(Fra_Numerator);
+		if (Fra_Numerator > Fra_Denominator){
+			int RNumer = Fra_Numerator / Fra_Denominator;
+			Fra_String += to_string(RNumer);
+			Fra_String += '\'';
+		}
+		Fra_String += to_string(Fra_Numerator % Fra_Denominator);
 		Fra_String += "/";
 		Fra_String += to_string(Fra_Denominator);
 		return Fra_String;

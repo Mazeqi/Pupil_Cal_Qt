@@ -29,6 +29,8 @@ int Question_Cal::Postfix_Ex_Cal(Fraction *Value_S, string Ques){
 	stack <Fraction> Postfix_S;
 
 	int i = 0;
+	bool IsRNumertor = false;//当出现1'1/2之类的数
+	int RNumer = 0;
 	while (Ques[i] != '\0'){
 		if (Ques[i] == ' '){
 			i++;
@@ -41,11 +43,28 @@ int Question_Cal::Postfix_Ex_Cal(Fraction *Value_S, string Ques){
 			int Numerator;
 			int Denominator;
 			Numerator = atoi(&Ques[i]);
+			
+			
+
 			while (Ques[i] >= '0' && Ques[i] <= '9') i++;
+			
+			if (Ques[i] == '\''){
+				i += 1;
+				IsRNumertor = true;
+				RNumer = Numerator;
+				continue;
+			}
+			
 			if (Ques[i] == '/'){
 				i += 1;
 				Denominator = atoi(&Ques[i]);
 				while (Ques[i] >= '0' && Ques[i] <= '9') i++;
+				
+				if (IsRNumertor == true){
+					Numerator += RNumer * Denominator;
+					IsRNumertor = false;
+				}
+				
 				Fraction f(Numerator, Denominator);
 				fra = f;
 			}
@@ -101,6 +120,10 @@ string	Question_Cal::Postfix_Ex_Gen(string Ques){
 				if (Ques[i] == '\0')
 					break;
 			}
+            if(Ques[i] == '\''){
+                PostQ += '\'';
+                i++;
+            }
 			if (Ques[i] == '/'){
 				PostQ += '/';
 				i++;
