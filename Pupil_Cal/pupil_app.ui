@@ -40,7 +40,7 @@
    <widget class="QPushButton" name="Ques_Start_Button">
     <property name="geometry">
      <rect>
-      <x>500</x>
+      <x>460</x>
       <y>210</y>
       <width>112</width>
       <height>34</height>
@@ -50,10 +50,10 @@
      <string>开始</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="Ques_Max_Nums_Label">
     <property name="geometry">
      <rect>
-      <x>500</x>
+      <x>470</x>
       <y>120</y>
       <width>181</width>
       <height>21</height>
@@ -79,7 +79,7 @@
    <widget class="QLineEdit" name="Ques_Total_Text">
     <property name="geometry">
      <rect>
-      <x>500</x>
+      <x>460</x>
       <y>150</y>
       <width>171</width>
       <height>41</height>
@@ -146,6 +146,42 @@
     </property>
     <property name="text">
      <string>得分：</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="Ques_Cal_Max_Num_Text">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>290</y>
+      <width>171</width>
+      <height>41</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Ques_Set_Cal_Max_Num_Label">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>261</y>
+      <width>301</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>输入参与计算的最大值(大于等于10):</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Ques_Cal_Max_Num_Button">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>350</y>
+      <width>112</width>
+      <height>34</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>设置</string>
     </property>
    </widget>
   </widget>

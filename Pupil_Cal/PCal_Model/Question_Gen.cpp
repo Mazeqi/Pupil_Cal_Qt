@@ -13,7 +13,7 @@
 using namespace std;
 Question_Gen::Question_Gen(){
 	
-	Quetions_Sum	= 10;
+    Questions_Sum	= 10;
 	Questions_Total = 0;
 	Cal_Max_Num		= 100;
 	Cal_Min_Num		= 0;
@@ -34,7 +34,7 @@ Question_Gen::Question_Gen(int In_Max_Num){
 		In_Max_Num = 100;
 	}
 
-	Quetions_Sum	= 10;
+    Questions_Sum	= 10;
 	Questions_Total = 0;
 	Cal_Max_Num		= In_Max_Num;
 	Cal_Min_Num		= 0;
@@ -309,4 +309,26 @@ int Question_Gen::Get_Questions_Total(){
 
 void Question_Gen::Set_Ques_Total_Zeros(){
     Questions_Total = 0;
+}
+
+void Question_Gen::Set_Cal_Max_Num(int Num){
+    if(Num <= 0){
+        Cal_Max_Num = 100;
+    }
+    else{
+        Cal_Max_Num = Num;
+    }
+}
+
+//设置题目数量
+void Question_Gen::Set_Ques_Num(int Num){
+    if(Num > 0){
+        Questions_Sum = Num;
+    }else{
+        Questions_Sum = 10;
+    }
+}
+
+int  Question_Gen::Get_Ques_Num(){
+    return Questions_Sum;
 }

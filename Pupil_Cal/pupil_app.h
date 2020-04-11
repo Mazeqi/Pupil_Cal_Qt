@@ -29,6 +29,8 @@ private slots:
 
     void Ques_Ans_Checked();
 
+    void Ques_Cal_Max_Num_Set();
+
 private:
 
     Ui::PuPil_APP *ui;
@@ -50,5 +52,7 @@ private:
     bool Save_History();
 
     bool Is_Save;
+
+    bool Is_Sumbit;
 };
 #endif // PUPIL_APP_H

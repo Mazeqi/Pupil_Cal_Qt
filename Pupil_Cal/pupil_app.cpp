@@ -12,6 +12,8 @@ PuPil_APP::PuPil_APP(QWidget *parent)
 
     ui->Ques_Ans_Submit_Button->setDisabled(true);
 
+    ui->Ques_Cal_Max_Num_Button->setDisabled(true);
+
     //开始按钮
     connect(ui->Ques_Start_Button,SIGNAL(clicked()),this,SLOT(Ques_Start()));
 
@@ -20,6 +22,11 @@ PuPil_APP::PuPil_APP(QWidget *parent)
 
     //提交按钮
     connect(ui->Ques_Ans_Submit_Button,SIGNAL(clicked()),this,SLOT(Ques_Ans_Checked()));
+
+    //设置参与计算最大数值按钮
+    connect(ui->Ques_Cal_Max_Num_Button,SIGNAL(clicked()),this,SLOT(Ques_Cal_Max_Num_Set()));
+
+    Is_Sumbit = false;
 
 
 }
@@ -32,14 +39,6 @@ PuPil_APP::~PuPil_APP()
 
 void PuPil_APP::Ques_Start()
 {
-       //第一次点击之后将开始按钮设成不可按下
-       ui->Ques_Start_Button->setDisabled(true);
-
-       //将下一题按钮设成可按
-       ui->Ques_NextOne_Button->setEnabled(true);
-
-       //提交按钮
-       ui->Ques_Ans_Submit_Button->setEnabled(true);
 
        //获取题目数量
        int Total = ui->Ques_Total_Text->text().toInt();
@@ -51,11 +50,17 @@ void PuPil_APP::Ques_Start()
               return;
        }
 
+       //将设置题目数量的按钮设成可按
+       ui->Ques_Cal_Max_Num_Button->setEnabled(true);
+
+       //第一次点击之后将开始按钮设成不可按下
+       ui->Ques_Start_Button->setDisabled(true);
+
        //去掉上次的题目
        Ques_G.Set_Ques_Total_Zeros();
 
-       //保存这次的题目
-       Ques_G.Question_Gen_Many_Save(Total);
+       //设置题目的数量
+       Ques_G.Set_Ques_Num(Total);
 
        //保存目前的数量
        Ques_Total = Total;
@@ -65,22 +70,61 @@ void PuPil_APP::Ques_Start()
 
        Current_Socre   = 0;
 
-       ui->Ques_Index_Label->setText("题目：" + QString::number(Ques_Index + 1) + "/" + QString::number(Ques_Total));
-
-       ui->Ques_Out_Browser->setText(QString::fromStdString(Ques_G.Get_Index_Ex(Ques_Index)));
 
 }
+void PuPil_APP::Ques_Cal_Max_Num_Set(){
 
-void PuPil_APP::Ques_NextOne()
-{
-    //初始
-    ui->Ques_Ans_RorN_Label->setText("");
+    //获取题目数量
+    int Num = ui->Ques_Cal_Max_Num_Text->text().toInt();
 
-    ui->Ques_YAans_Text->setText("");
+    //题目数量限制
+    if(Num < 10){
+           QMessageBox::information(this, "数量错误","请输入大于等于10的数",QMessageBox::Yes);
+           return;
+    }
 
+    Ques_G.Set_Cal_Max_Num(Num);
+
+    //将设置最大值按钮设成不可按
+    ui->Ques_Cal_Max_Num_Button->setDisabled(true);
+
+    //将下一题按钮设成可按
+    ui->Ques_NextOne_Button->setEnabled(true);
+
+    //设置提交按钮为可按
     ui->Ques_Ans_Submit_Button->setEnabled(true);
 
-    //逻辑
+    //保存这次的题目
+    Ques_G.Question_Gen_Many_Save(Ques_G.Get_Ques_Num());
+
+
+    //设置题目位置
+    ui->Ques_Index_Label->setText("题目：" + QString::number(Ques_Index + 1) + "/" + QString::number(Ques_Total));
+
+    //输出题目
+    ui->Ques_Out_Browser->setText(QString::fromStdString(Ques_G.Get_Index_Ex(Ques_Index)));
+
+
+}
+void PuPil_APP::Ques_NextOne()
+{
+    //设置上一次的回答正确与否标志为空
+    ui->Ques_Ans_RorN_Label->setText("");
+
+    //设置回答问题的Text为空
+    ui->Ques_YAans_Text->setText("");
+
+    //设置提交按钮可按下
+    ui->Ques_Ans_Submit_Button->setEnabled(true);
+
+    //结束
+    if(Is_Sumbit == false){
+        Ques_NoAns.push_back(Ques_Index + 1);
+    }
+    else{
+        Is_Sumbit = false;
+    }
+    //当问题到末尾，需要设置提交、下一题为不可按，开始按钮为可按
     if(Ques_Index == Ques_Total - 1 ){
 
         ui->Ques_NextOne_Button->setDisabled(true);
@@ -91,8 +135,6 @@ void PuPil_APP::Ques_NextOne()
 
         Save_History();
     }else{
-        //结束
-        Ques_NoAns.push_back(Ques_Index + 1);
 
         Ques_Index++;
 
@@ -107,6 +149,7 @@ void PuPil_APP::Ques_NextOne()
 
 }
 
+//检查答案，按下提交按钮时的反应
 void PuPil_APP::Ques_Ans_Checked(){
     string Y_Ans = ui->Ques_YAans_Text->text().toStdString();
 
@@ -134,12 +177,7 @@ void PuPil_APP::Ques_Ans_Checked(){
         Ques_Rig.push_back(Ques_Index + 1);
 
     }
-
-    //Ques_Index++;
-
-    //ui->Ques_Index_Label->setText("题目：" + QString::number(Ques_Index + 1) + "/" + QString::number(Ques_Total));
-
-    //ui->Ques_Out_Browser->setText(QString::fromStdString(Ques_G.Get_Index_Ex(Ques_Index)));
+    Is_Sumbit = true;
 }
 
 bool PuPil_APP::Save_History(){
@@ -164,11 +202,6 @@ bool PuPil_APP::Save_History(){
         }
 
         Right += ")\n";
-        Right += "做对的题目：\n";
-        for (int i = 0; i < Ques_Rig.size(); i++){
-                Right += Ques_G.Get_Index_Ex(Ques_Rig[i] - 1) + "\n";
-        }
-        Right += "\n";
 
     }
 
@@ -181,11 +214,6 @@ bool PuPil_APP::Save_History(){
         }
 
         Wrong += ")\n";
-        Wrong += "做错的题目：\n";
-        for (int i = 0; i < Ques_Err.size(); i++){
-                Wrong += Ques_G.Get_Index_Ex(Ques_Err[i] - 1) + "\n";
-        }
-        Wrong += "\n";
 
     }
 
@@ -198,12 +226,6 @@ bool PuPil_APP::Save_History(){
         }
 
         NoAns += ")\n";
-        NoAns += "没有回答的题目：\n";
-        for (int i = 0; i < Ques_NoAns.size(); i++){
-                Wrong += Ques_G.Get_Index_Ex(Ques_NoAns[i] - 1) + "\n";
-        }
-        NoAns += "\n";
-
     }
 
     OutFile_Score << Line;

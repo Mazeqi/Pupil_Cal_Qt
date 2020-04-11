@@ -11,7 +11,7 @@ class Question_Gen{
 private:
 
 	//需要生成的问题的数量
-	int Quetions_Sum;		
+    int Questions_Sum;
 
 	//参与计算的最大值
 	int Cal_Max_Num;	
@@ -80,6 +80,13 @@ public:
 
     //将数量设成0
     void Set_Ques_Total_Zeros();
+
+    void Set_Cal_Max_Num(int Nums);
+
+    //设置题目数量
+    void Set_Ques_Num(int Num);
+
+    int  Get_Ques_Num();
 };
 
 
